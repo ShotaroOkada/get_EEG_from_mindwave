@@ -15,4 +15,4 @@ Python 2.7.16-bit
 
 ## Execute
 1. Connect with MindWave via Bluetooth
-2. `python2 main.py`
+2. `python2 src/main.py`
