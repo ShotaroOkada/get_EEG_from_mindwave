@@ -1,5 +1,7 @@
 .env
 .vscode
+
 __pycache__
-setting.pyc
-main.pyc
+*.log
+*.pot
+*.pyc
