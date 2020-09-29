@@ -1,8 +1,8 @@
 import os
 from os.path import join, dirname
-from dotenv import load_dotenv
+from dotenv import Dotenv
 
 dotenv_path = join(dirname(__file__), '../.env')
-load_dotenv(dotenv_path)
+Dotenv(dotenv_path)
 
 MINDWAVE_PORT = os.environ.get("MINDWAVE_PORT")
