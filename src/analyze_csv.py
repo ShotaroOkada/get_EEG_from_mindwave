@@ -28,6 +28,8 @@ def analyze_EEG_data(eeg_data):
     F = np.fft.fft(windowData)
     F_abs = np.abs(F)
 
+    print(len(F_abs))
+
     # プロット
     left = np.arange(int(N/2))
     height = F_abs[0:int(N/2)] / np.max(F_abs)
@@ -37,9 +39,46 @@ def analyze_EEG_data(eeg_data):
     plt.show()
 
 
+def fft_EEG(eeg_data):
+    # データのパラメータ
+    N = len(eeg_data)  # サンプル数
+    dt = float(1)/512  # サンプリング間隔
+    t = np.arange(0, N*dt, dt)  # 時間軸
+    freq = np.linspace(0, 1.0/dt, N)  # 周波数軸
+
+    # 信号を生成（周波数10の正弦波+周波数20の正弦波+ランダムノイズ）
+    f = eeg_data
+
+    # 高速フーリエ変換
+    F = np.fft.fft(f)
+
+    # 振幅スペクトルを計算
+    Amp = np.abs(F)
+
+    # グラフ表示
+    plt.figure()
+    plt.rcParams['font.family'] = 'Times New Roman'
+    plt.rcParams['font.size'] = 17
+    plt.subplot(121)
+    plt.plot(t, f)
+    plt.xlabel("Time", fontsize=20)
+    plt.ylabel("Signal", fontsize=20)
+    plt.grid()
+    leg = plt.legend(loc=1, fontsize=25)
+    leg.get_frame().set_alpha(1)
+    plt.subplot(122)
+    plt.plot(freq, Amp)
+    plt.xlabel('Frequency', fontsize=20)
+    plt.ylabel('Amplitude', fontsize=20)
+    plt.grid()
+    leg = plt.legend(loc=1, fontsize=25)
+    leg.get_frame().set_alpha(1)
+    plt.show()
+
+
 def main():
-    eeg_data = read_csv('data/new.csv')
-    analyze_EEG_data(eeg_data)
+    eeg_data = read_csv('data/test5.csv')
+    fft_EEG(eeg_data)
 
 
 if __name__ == '__main__':
