@@ -5,10 +5,10 @@ from datetime import datetime, time
 
 PORT = MINDWAVE_PORT
 
-with open('data/hoge.csv', 'w') as csvfile:
+with open('data/2120010/6-5.csv', 'w') as csvfile:
     w = csv.writer(csvfile, lineterminator='\n')
 
-    for packets in thinkgear.ThinkGearProtocol(PORT).get_packets():
+    for packets in thinkgear.ThinkGearProtocol("/dev/tty.MindWaveMobile-SerialPo").get_packets():
         for p in packets:
             if isinstance(p, thinkgear.ThinkGearRawWaveData):
                 print p
