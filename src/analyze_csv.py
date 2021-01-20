@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 
 def read_csv(csvfile_path):
-    timestamp = 0
+    # timestamp = 0
     row_wave_value = 1
     eeg_data = []
     with open(csvfile_path) as csvfile:
@@ -28,8 +28,6 @@ def analyze_EEG_data(eeg_data):
     F = np.fft.fft(windowData)
     F_abs = np.abs(F)
 
-    print(len(F_abs))
-
     # プロット
     left = np.arange(int(N/2))
     height = F_abs[0:int(N/2)] / np.max(F_abs)
@@ -44,9 +42,7 @@ def fft_EEG(eeg_data):
     N = len(eeg_data)  # サンプル数
     dt = float(1)/512  # サンプリング間隔
     fc = 60  # カットオフ周波数
-    # t = np.arange(0, N*dt, dt)  # 時間軸
     freq = np.linspace(0, 1.0/dt, N)  # 周波数軸
-    # freq = np.linspace(0, 50)
 
     f = eeg_data
 
@@ -70,6 +66,8 @@ def fft_EEG(eeg_data):
     Amp = np.abs(F2)
 
     # グラフ表示
+    axes = plt.axes()
+    axes.set_xlim([0, 60])
     plt.plot(freq, Amp)
     plt.xlabel('Frequency', fontsize=20)
     plt.ylabel('Amplitude', fontsize=20)
@@ -77,7 +75,7 @@ def fft_EEG(eeg_data):
 
 
 def main():
-    eeg_data = read_csv('data/test5.csv')
+    eeg_data = read_csv('data/1016125/1.csv')
     fft_EEG(eeg_data)
 
 
