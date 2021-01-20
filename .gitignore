@@ -1,5 +1,7 @@
 .env
 .vscode
+.DS_Store
+plot_images/
 
 __pycache__
 *.log
