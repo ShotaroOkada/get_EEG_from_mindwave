@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
+import glob
 
 
 def read_csv(csvfile_path):
@@ -37,7 +39,7 @@ def analyze_EEG_data(eeg_data):
     plt.show()
 
 
-def fft_EEG(eeg_data):
+def fft_EEG(eeg_data, student_number, experiment_number):
     # データのパラメータ
     N = len(eeg_data)  # サンプル数
     dt = float(1)/512  # サンプリング間隔
@@ -65,18 +67,35 @@ def fft_EEG(eeg_data):
     # 振幅スペクトルを計算
     Amp = np.abs(F2)
 
+    plt.figure()
+
     # グラフ表示
     axes = plt.axes()
     axes.set_xlim([0, 60])
     plt.plot(freq, Amp)
     plt.xlabel('Frequency', fontsize=20)
     plt.ylabel('Amplitude', fontsize=20)
-    plt.show()
+    # plt.show()
+    plt.savefig("plot_images/" + student_number +
+                "/" + experiment_number + ".png")
 
 
 def main():
-    eeg_data = read_csv('data/1016125/1.csv')
-    fft_EEG(eeg_data)
+    # eeg_data = read_csv('data/1016125/1.csv')
+    # fft_EEG(eeg_data)
+    if not os.path.exists("plot_images/"):
+        os.mkdir("plot_images/")
+    data_folders = glob.glob("./data/*")
+    for data_folder in data_folders:
+        data_files = glob.glob(data_folder + "/*")
+        student_number = data_folder.split('/')[2]
+        if not os.path.exists("plot_images/" + student_number):
+            os.mkdir("plot_images/" + student_number)
+        for data_file in data_files:
+            eeg_data = read_csv(data_file)
+            file_name_array = data_file.split('/')
+            experiment_number = file_name_array[3].split('.')[0]
+            fft_EEG(eeg_data, student_number, experiment_number)
 
 
 if __name__ == '__main__':
