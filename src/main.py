@@ -5,13 +5,13 @@ from datetime import datetime, time
 
 PORT = MINDWAVE_PORT
 
-with open('data/2120050/6-4.csv', 'w') as csvfile:
+with open('data/1021109/1.csv', 'w') as csvfile:
     w = csv.writer(csvfile, lineterminator='\n')
 
     for packets in thinkgear.ThinkGearProtocol("/dev/tty.MindWaveMobile-SerialPo").get_packets():
         for p in packets:
             if isinstance(p, thinkgear.ThinkGearRawWaveData):
-                print p
+                print(p)
                 now = datetime.now().time()
                 w.writerow([now.isoformat(), p])
             else:
