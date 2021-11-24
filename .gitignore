@@ -2,6 +2,7 @@
 .vscode
 .DS_Store
 plot_images/
+hoge/
 
 __pycache__
 *.log
