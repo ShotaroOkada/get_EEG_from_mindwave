@@ -1,7 +1,6 @@
 .env
 .vscode
 .DS_Store
-plot_images/
 hoge/
 
 __pycache__
