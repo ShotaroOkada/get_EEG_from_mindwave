@@ -138,5 +138,5 @@ def main():
 
 
 if __name__ == '__main__':
-    # analyze_all_data()
-    main()
+    analyze_all_data()
+    # main()
