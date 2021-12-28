@@ -79,6 +79,24 @@ def fft_EEG(eeg_data, student_number, experiment_number):
     # plt.show()
     plt.savefig("plot_images/" + student_number +
                 "/" + experiment_number + ".png")
+    theta_sum = 0
+    alpha_sum = 0
+    for i, a in enumerate(Amp):
+        if a >= 4 and a <= 8:
+            theta_sum += freq[i]
+        elif a >= 8 and a <= 12:
+            alpha_sum += freq[i]
+
+    with open("plot_images/" + student_number +
+              "/" + "EEGdif.csv", 'a') as csvfile:
+        w = csv.writer(csvfile, lineterminator='\n')
+
+        if(theta_sum):
+            print(theta_sum)
+            w.writerow([theta_sum])
+        if(alpha_sum):
+            print(alpha_sum)
+            w.writerow([alpha_sum])
 
 
 def analyze_single_data(csvfile_path):
@@ -116,8 +134,9 @@ def analyze_all_data():
 
 
 def main():
-    analyze_one_person_data("1016129")
+    analyze_one_person_data("2120005")
 
 
 if __name__ == '__main__':
-    analyze_all_data()
+    # analyze_all_data()
+    main()
